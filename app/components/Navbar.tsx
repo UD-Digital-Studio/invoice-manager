@@ -2,18 +2,21 @@
 import { UserButton, useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import LanguageSwitcher from './LanguageSwitcher'
 import { Layers } from 'lucide-react'
 import React, { useEffect } from 'react'
 import { checkAndAddUser } from '../actions'
+import { useTranslations } from 'next-intl'
 
 const Navbar = () => {
+    const t = useTranslations('Navbar');
     const pathname = usePathname()
     const {user} = useUser()
 
     const navLinks = [
         {
             href: "/",
-            label: "Factures"
+            label: t('invoices')
         }
 
     ]
@@ -52,6 +55,7 @@ const Navbar = () => {
                
                 <div className='flex  space-x-4 items-center'>
                     {renderLinks("btn")}
+                    <LanguageSwitcher />
                     <UserButton />
                 </div>
             </div>

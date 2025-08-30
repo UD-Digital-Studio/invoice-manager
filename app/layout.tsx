@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,18 +21,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const messages = useMessages();
+
   return (
     <ClerkProvider>
-    <html lang="en" data-theme="fantasy">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+      <html lang={locale} data-theme="fantasy">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
