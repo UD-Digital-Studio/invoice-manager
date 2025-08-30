@@ -1,4 +1,5 @@
-"use client"
+'use client';
+
 import { deleteInvoice, getInvoiceById, updateInvoice } from '@/app/actions'
 import InvoiceInfo from '@/app/components/InvoiceInfo'
 import InvoiceLines from '@/app/components/InvoiceLines'
